@@ -8,11 +8,15 @@ function App() {
 
   const getClimaInfo = (event)=> {
     if (event.key == 'Enter') {
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}`).then(
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=es&appid=${apikey}`).then(
         response => response.json()
       ).then(
           data => {
             setWeatherData(data)
+            /*let climaIcon = data.weather[0].icon;
+            console.log(climaIcon);
+            let urlIcon = 'http://openweathermap.org/img/wn/'+climaIcon+'@2x.png'
+            console.log(urlIcon);*/
           }
         )
     }
@@ -21,7 +25,7 @@ function App() {
   return ( 
     <div className='container'>
       <h1>Bienvenido!</h1>
-      <p>Ingresa tu localidad para recibir el estado del clima.</p>
+      <p className='indicacion'>Ingresa tu localidad para recibir el estado del clima</p>
       <input 
         className='input form-group' 
         placeholder='Ingrese localidad'
@@ -34,15 +38,22 @@ function App() {
         <div>
         </div>
       ) : (
-        <div>
-          <h2>{weatherData.name}</h2>
-          <p>{weatherData.sys.country}</p>
-          <p>{Math.round(weatherData.main.temp)}°C</p>
-          <p>Estado {weatherData.weather[0].main}</p>
-          <p>min {Math.round(weatherData.main.temp_min)}°C</p>
-          <p>max {Math.round(weatherData.main.temp_max)}°C</p>
-          <p>Humedad {weatherData.main.humidity}%</p>
+      <div>
+        <div className='card-transparent'>
+          <div className='card-header'>
+            <h2>{weatherData.name}</h2>
+            <p>{weatherData.sys.country}</p>
+          </div>
+          <div className='card-body col-sm-12'>
+            <p className='col-xs-5 temp'>{Math.round(weatherData.main.temp)}°C</p>
+            <img className='col-xs-5' src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}></img>
+            <p className='col-xs-12 climaEstado'>Estado {weatherData.weather[0].description} </p>
+            <p className='col-xs-6 climaMin'>min {Math.round(weatherData.main.temp_min)}°C</p>
+            <p className='col-xs-6 climaMax'>max {Math.round(weatherData.main.temp_max)}°C</p>
+            <p className='col-xs-10 climaHum'>Humedad {weatherData.main.humidity}%</p>
+          </div>
         </div>
+      </div>
       )
       }
       {weatherData.cod === '404' ? (
