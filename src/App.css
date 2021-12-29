@@ -1,0 +1,38 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    background-color: rgb(129, 219, 255);
+}
+
+.container {
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+h1 {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: bold;
+}
+
+.input {
+    width: 80%;
+    padding: 10px;
+    border: solid 1px lightgray;
+    border-radius: 6px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+footer {
+    margin-top: ;
+    background-color: rgb(39, 39, 39);
+    display: flex;
+    justify-content: center;
+}
